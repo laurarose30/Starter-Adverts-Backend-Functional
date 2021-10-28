@@ -11,7 +11,7 @@ const {v4: uuidv4} = require('uuid');
 const { Ad } = require('../models/ad');
 const { User } = require('../models/user');
 
-mongoose.connect('mongodb+srv://First-MongoDb-CS:p4ssw0rd@cluster0.ywlkz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://username:password@cluster0.ywlkz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority');
 
 // defining the Express app
 const app = express();
