@@ -13,7 +13,7 @@ const { Cart } = require('../models/cart');
 const { User } = require('../models/user');
 const { Todo} = require('../models/todo')
 mongoose.connect('mongodb+srv://First-MongoDb-CS:p4ssw0rd@cluster0.ywlkz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority');
-
+const port = process.env.PORT || 3001
 // defining the Express app
 const app = express();
 
@@ -110,8 +110,8 @@ app.put('/todo/:id', async (req, res) => {
 
 
 // starting the server
-app.listen(3001, () => {
-  console.log('listening on port 3001');
+app.listen(port, () => {
+  console.log(`listening on port ${port}`);
 });
 
 var db = mongoose.connection;
