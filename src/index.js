@@ -8,11 +8,11 @@ const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
 const {v4: uuidv4} = require('uuid');
 
-const { Ad } = require('../models/ad');
+const { Event } = require('../models/event');
 const { Cart } = require('../models/cart');
 const { User } = require('../models/user');
 const { Todo} = require('../models/todo')
-mongoose.connect('mongodb+srv://First-MongoDb-CS:p4ssw0rd@cluster0.ywlkz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://anon45:IHATEDATABASES@cluster0.invl2.mongodb.net/events?retryWrites=true&w=majority');
 const port = process.env.PORT || 3001
 // defining the Express app
 const app = express();
@@ -31,8 +31,7 @@ app.use(morgan('combined'));
 
 
 app.post('/auth', async (req,res) => {
-  const user = await User.findOne({ username: req.body.username })
-  console.log(req.body)
+  const user = await User.findOne({ userName: req.body.userName })
   if(!user) {
     return res.sendStatus(401);
   }
@@ -45,6 +44,7 @@ app.post('/auth', async (req,res) => {
   res.send({token: user.token})
 
 })
+
 
 app.use( async (req,res,next) => {
   const authHeader = req.headers['authorization']
@@ -59,24 +59,24 @@ app.use( async (req,res,next) => {
 
 // defining CRUD operations
 app.get('/', async (req, res) => {
-  res.send(await Ad.find());
+  res.send(await Event.find());
 });
 
 app.post('/', async (req, res) => {
-  const newAd = req.body;
-  const ad = new Ad(newAd);
-  await ad.save();
-  res.send({ message: 'New ad inserted.' });
+  const newEvent = req.body;
+  const event = new Event(newEvent);
+  await event.save();
+  res.send({ message: 'New event inserted.' });
 });
 
 app.delete('/:id', async (req, res) => {
-  await Ad.deleteOne({ _id: ObjectId(req.params.id) })
-  res.send({ message: 'Ad removed.' });
+  await Event.deleteOne({ _id: ObjectId(req.params.id) })
+  res.send({ message: 'Event removed.' });
 });
 
 app.put('/:id', async (req, res) => {
-  await Ad.findOneAndUpdate({ _id: ObjectId(req.params.id)}, req.body )
-  res.send({ message: 'Ad updated.' });
+  await Event.findOneAndUpdate({ _id: ObjectId(req.params.id)}, req.body )
+  res.send({ message: 'Event updated.' });
 });
 
 
